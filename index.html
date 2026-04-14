@@ -276,8 +276,452 @@
 /* Adjust cy-layout inside ov-body */
 #home .ov-body .cy-layout, #home-firstvisit .ov-body .cy-layout {padding:18px 32px 80px;max-width:none}
 
-</style></head><body><nav class="switcher" id="switcher"> <span class="label">Painkiller · v1 wires</span> <button data-target="integrated" class="on">01 · Integrated</button><button data-target="gate">02 · Gate</button> <button data-target="results">03 · Results</button> <button data-target="pricing">04 · Pricing</button> <button data-target="onboard">05 · Connect</button> <button data-target="dashboard">06 · Report</button> <button data-target="overview">07 · Briefing</button> <button data-target="expenses">08 · Transactions</button> <button data-target="improvements">09 · Improvements</button> <button data-target="vendors">10 · Vendors</button><button data-target="home">11 · Home</button><button data-target="home-firstvisit">12 · Home (first visit)</button><button data-target="onboard2">13 · Onboarding v2</button> <span style="margin-left:auto;font-size:10px;color:#5a5347;letter-spacing:.08em;text-transform:uppercase">↳ Click bell icon to see drawer</span></nav><!-- ========== NOTIFICATION DRAWER (shared across app screens) ========== --><div class="drawer-scrim" id="drawerScrim"></div><aside class="drawer" id="drawer"> <div class="drawer-head"> <div> <h3>Inbox</h3> <div class="sub">5 new · 11 total this week</div> </div> <button class="icon-btn" id="drawerClose"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg></button> </div> <div class="drawer-body"> <div class="notif unread"> <div class="dot"></div> <div class="body"> <div class="ttl">Ferguson charge ($1,247) looks like an improvement</div> <div class="det">Matched to a dining table + credenza invoice in your Gmail. Confirming saves ~$410 in taxes when you sell.</div> <div class="time">2 hours ago</div> <div class="inline-actions"> <button class="btn dark sm">Yes, improvement</button> <button class="btn ghost sm">Personal</button> </div> </div> </div> <div class="notif unread"> <div class="dot"></div> <div class="body"> <div class="ttl">Rivera Gardens recurring · create a rule?</div> <div class="det">We've seen this monthly charge 6 times. Auto-tag as maintenance going forward?</div> <div class="time">This morning</div> <div class="inline-actions"> <button class="btn dark sm">Always maintenance</button> <button class="btn ghost sm">Ask each time</button> </div> </div> </div> <div class="notif unread"> <div class="dot"></div> <div class="body"> <div class="ttl">Sync finished · 89 days back</div> <div class="det">342 transactions imported, 18 improvements proposed, $47,300 in protected value found.</div> <div class="time">Yesterday · 4:12 PM</div> </div> </div> <div class="notif unread"> <div class="dot"></div> <div class="body"> <div class="ttl">Your home value ticked up $18K this week</div> <div class="det">Three new sales within 0.5 mi · median $/sqft now $1,241 · your estimated value is $4.32M.</div> <div class="time">Yesterday</div> </div> </div> <div class="notif read"> <div class="dot"></div> <div class="body"> <div class="ttl">Gmail scan found 2 new invoices</div> <div class="det">Harrison Flooring and Reyes Construction — both linked to existing Plaid charges.</div> <div class="time">Apr 6</div> </div> </div> </div> <div class="drawer-foot"> <button class="btn ghost sm">Mark all read</button> <button class="btn ghost sm">Notification settings</button> </div></aside><!-- ========== GLOBAL SEARCH (cmd+K) ========== --><!-- STATE A: Search empty — just opened, nothing typed --><div class="search-scrim" id="searchScrim"> <div class="search-modal" role="dialog" aria-label="Search Painkiller"> <div class="search-input-row"> <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg> <input type="text" placeholder="Search transactions, vendors, improvements…" value="" id="searchInput"/> <span class="kbd">esc</span> </div> <div class="search-results" style="padding:32px 28px;text-align:center"> <div style="font-size:14px;color:var(--muted);line-height:1.6"> <div style="font-size:28px;margin-bottom:12px;opacity:.3">⌘K</div> Start typing to search across transactions, vendors, improvements, and rules. </div> <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center"> <span class="q-chip" style="cursor:pointer">Rivera Gardens</span> <span class="q-chip" style="cursor:pointer">pool</span> <span class="q-chip" style="cursor:pointer">missing receipts</span> <span class="q-chip" style="cursor:pointer">Chubb</span> <span class="q-chip" style="cursor:pointer">improvements over $5K</span> </div> </div> <div class="search-foot"> <span><span class="kbd">↑↓</span> navigate</span> <span><span class="kbd">↵</span> open</span> <span><span class="kbd">⌘K</span> toggle</span> <span style="margin-left:auto">Results update as you type</span> </div> </div></div><!-- ========== 01 ADDRESS GATE ========== -->
-<section class="screen active" id="integrated">
+/* ============= HOMEPAGE (Origin-inspired) ============= */
+#homepage{padding:0;background:#0a0a0a}
+#homepage .screen-pad{padding:0}
+
+/* nav */
+.hp-nav{position:sticky;top:46px;z-index:30;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.hp-nav .brand{display:flex;align-items:center;gap:10px}
+.hp-nav .brand img{height:24px;filter:brightness(0) invert(1)}
+.hp-nav .nav-links{display:flex;gap:28px;align-items:center;font-size:13px;color:rgba(255,255,255,.55);font-weight:400}
+.hp-nav .nav-links a{cursor:pointer;transition:color .15s;letter-spacing:-.005em}
+.hp-nav .nav-links a:hover{color:#fff}
+.hp-nav .nav-cta{background:#fff;color:#0a0a0a;padding:9px 20px;border-radius:99px;font-weight:600;font-size:12px;letter-spacing:-.005em;transition:background .15s}
+.hp-nav .nav-cta:hover{background:#e0c9a3}
+
+/* hero */
+.hp-hero{min-height:calc(100vh - 106px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 100px;position:relative;overflow:hidden}
+.hp-hero::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse at 50% 0%, rgba(201,168,122,.1) 0%, transparent 50%),
+  radial-gradient(ellipse at 20% 100%, rgba(201,168,122,.04) 0%, transparent 40%),
+  radial-gradient(ellipse at 80% 80%, rgba(201,168,122,.03) 0%, transparent 40%);
+  pointer-events:none}
+.hp-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,122,.15),transparent)}
+
+/* floating grid lines (subtle background texture) */
+.hp-grid-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:.03}
+.hp-grid-bg::before{content:'';position:absolute;inset:-1px;background-image:
+  linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px);
+  background-size:80px 80px}
+
+.hp-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:99px;font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase;font-weight:500;margin-bottom:32px;position:relative;z-index:1}
+.hp-badge .dot{width:6px;height:6px;border-radius:99px;background:#17a34a;box-shadow:0 0 8px rgba(23,163,74,.4);animation:hp-pulse 2s ease-in-out infinite}
+@keyframes hp-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}
+
+.hp-hero h1{font-family:var(--sans);font-size:76px;font-weight:700;color:#fff;line-height:1.02;letter-spacing:-.05em;max-width:860px;margin-bottom:20px;position:relative;z-index:1}
+.hp-hero h1 em{font-style:normal;background:linear-gradient(135deg,#f0dfc4 0%,#c9a87a 40%,#b8860b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hp-hero .lead{font-size:18px;color:rgba(255,255,255,.42);max-width:520px;line-height:1.6;margin-bottom:48px;font-weight:400;letter-spacing:-.01em;position:relative;z-index:1}
+
+/* address search bar */
+.hp-search{width:100%;max-width:560px;position:relative;z-index:1;margin-bottom:20px}
+.hp-search-bar{display:flex;align-items:center;gap:10px;padding:7px 7px 7px 22px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;backdrop-filter:blur(12px);transition:border-color .25s, box-shadow .25s}
+.hp-search-bar:focus-within{border-color:rgba(201,168,122,.35);box-shadow:0 0 0 4px rgba(201,168,122,.07),0 24px 48px rgba(0,0,0,.2)}
+.hp-search-bar svg{width:18px;height:18px;stroke:rgba(255,255,255,.3);fill:none;stroke-width:2;flex:0 0 18px}
+.hp-search-bar input{flex:1;border:0;background:transparent;font-size:15px;font-family:var(--sans);color:#fff;outline:none;padding:11px 0;letter-spacing:-.005em}
+.hp-search-bar input::placeholder{color:rgba(255,255,255,.25)}
+.hp-search-bar .go{padding:13px 26px;background:#fff;color:#0a0a0a;border:0;border-radius:11px;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s,transform .1s;letter-spacing:-.005em}
+.hp-search-bar .go:hover{background:#e0c9a3;transform:translateY(-1px)}
+
+.hp-trust{display:flex;gap:24px;justify-content:center;font-size:12px;color:rgba(255,255,255,.28);font-weight:400;position:relative;z-index:1}
+.hp-trust span{display:flex;align-items:center;gap:8px}
+.hp-trust span::before{content:'';width:4px;height:4px;border-radius:99px;background:rgba(255,255,255,.2)}
+
+/* scroll prompt */
+.hp-scroll{margin-top:56px;font-size:11px;color:rgba(255,255,255,.2);letter-spacing:.08em;text-transform:uppercase;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px}
+.hp-scroll::after{content:'';width:1px;height:32px;background:linear-gradient(180deg,rgba(255,255,255,.15),transparent)}
+
+/* section shared */
+.hp-section{padding:120px 48px}
+.hp-section .inner{max-width:1100px;margin:0 auto}
+.hp-section .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:18px}
+.hp-section .eyebrow.light{color:rgba(255,255,255,.3)}
+.hp-section .eyebrow.dark{color:var(--camel)}
+.hp-section .sh{font-family:var(--sans);font-size:50px;font-weight:700;letter-spacing:-.04em;line-height:1.06;margin-bottom:18px;max-width:700px}
+.hp-section .sh.white{color:#fff}
+.hp-section .sh.dark{color:var(--dark)}
+.hp-section .sh em{font-style:normal}
+.hp-section .sh.white em{background:linear-gradient(135deg,#e0c9a3,#c9a87a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hp-section .sh.dark em{color:var(--camel)}
+.hp-section .slead{font-size:17px;max-width:560px;line-height:1.6;margin-bottom:56px;letter-spacing:-.005em}
+.hp-section .slead.white{color:rgba(255,255,255,.4)}
+.hp-section .slead.dark{color:var(--muted)}
+
+/* feature cards */
+.hp-feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(max-width:680px){.hp-feat-grid{grid-template-columns:1fr}}
+.hp-feat{padding:36px 32px;border:1px solid var(--border);border-radius:20px;background:#fff;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.hp-feat:hover{border-color:var(--border2);box-shadow:0 8px 32px rgba(0,0,0,.04)}
+.hp-feat .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px;font-size:18px;font-weight:700}
+.hp-feat .ic.v1{background:#ecfdf5;color:#059669}
+.hp-feat .ic.v2{background:#fef3c7;color:#d97706}
+.hp-feat .ic.v3{background:#eff6ff;color:#2563eb}
+.hp-feat .ic.v4{background:#fce7f3;color:#db2777}
+.hp-feat h4{font-size:19px;font-weight:600;color:var(--dark);letter-spacing:-.015em;margin-bottom:8px;line-height:1.25}
+.hp-feat p{font-size:14px;color:var(--muted);line-height:1.6;letter-spacing:-.005em}
+.hp-feat .tag{display:inline-block;margin-top:14px;font-size:11px;font-weight:500;color:var(--camel);letter-spacing:.02em}
+
+/* how-it-works steps */
+.hp-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;counter-reset:step}
+@media(max-width:768px){.hp-steps{grid-template-columns:1fr}}
+.hp-step{padding:40px 36px;position:relative;border-right:1px solid var(--border)}
+.hp-step:last-child{border-right:0}
+.hp-step .num{font-family:var(--sans);font-size:72px;font-weight:700;letter-spacing:-.05em;line-height:1;margin-bottom:20px;background:linear-gradient(180deg,var(--light),transparent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hp-step .lab{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--camel);font-weight:600;margin-bottom:12px}
+.hp-step h5{font-size:18px;font-weight:600;color:var(--dark);letter-spacing:-.015em;margin-bottom:8px;line-height:1.25}
+.hp-step p{font-size:13px;color:var(--muted);line-height:1.6;letter-spacing:-.005em}
+
+/* dark stats */
+.hp-stats{background:#0a0a0a;padding:100px 48px;position:relative;overflow:hidden}
+.hp-stats::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, rgba(201,168,122,.05) 0%, transparent 60%);pointer-events:none}
+.hp-stats .inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.hp-stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+@media(max-width:768px){.hp-stats .grid{grid-template-columns:repeat(2,1fr)}}
+.hp-stat{text-align:center}
+.hp-stat .val{font-family:var(--sans);font-size:54px;font-weight:700;letter-spacing:-.045em;line-height:1;background:linear-gradient(135deg,#f0dfc4,#c9a87a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hp-stat .lbl{font-size:13px;color:rgba(255,255,255,.35);margin-top:10px;line-height:1.5;letter-spacing:-.005em}
+
+/* pull quote */
+.hp-quote{padding:100px 48px;background:#fafaf9;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.hp-quote .inner{max-width:760px;margin:0 auto;text-align:center}
+.hp-quote blockquote{font-family:var(--sans);font-size:30px;font-weight:600;color:var(--dark);letter-spacing:-.025em;line-height:1.3;margin-bottom:24px}
+.hp-quote blockquote em{font-style:normal;color:var(--camel)}
+.hp-quote .attr{font-size:13px;color:var(--muted);letter-spacing:-.005em}
+.hp-quote .attr strong{color:var(--dark);font-weight:600}
+
+/* who it's for */
+.hp-audience{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:center}
+@media(max-width:860px){.hp-audience{grid-template-columns:1fr;gap:40px}}
+.hp-checks{display:flex;flex-direction:column;gap:12px;margin-top:32px}
+.hp-check{display:flex;gap:14px;padding:16px 18px;background:#fff;border:1px solid var(--border);border-radius:12px;transition:border-color .15s}
+.hp-check:hover{border-color:var(--border2)}
+.hp-check .mark{width:22px;height:22px;border-radius:7px;background:var(--dark);color:#fff;display:grid;place-items:center;font-size:10px;font-weight:700;flex:0 0 auto}
+.hp-check .txt{font-size:13.5px;color:var(--dark);line-height:1.5;letter-spacing:-.005em}
+.hp-check .txt strong{font-weight:600}
+.hp-pullstat{padding:48px 44px;background:var(--dark);border-radius:24px;color:#fff}
+.hp-pullstat .eyebrow{color:rgba(255,255,255,.3) !important}
+.hp-pullstat .big{font-family:var(--sans);font-size:72px;font-weight:700;letter-spacing:-.05em;line-height:.95;margin:16px 0;background:linear-gradient(135deg,#f0dfc4,#c9a87a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hp-pullstat .desc{font-size:14px;color:rgba(255,255,255,.45);line-height:1.6;max-width:300px;letter-spacing:-.005em}
+
+/* pricing */
+.hp-pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:768px){.hp-pricing{grid-template-columns:1fr}}
+.hp-tier{padding:32px 28px;border:1px solid var(--border);border-radius:20px;background:#fff;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
+.hp-tier:hover{box-shadow:0 8px 32px rgba(0,0,0,.05)}
+.hp-tier.pop{border-color:var(--dark);position:relative}
+.hp-tier.pop::before{content:'Popular';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:99px;white-space:nowrap}
+.hp-tier .name{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:4px}
+.hp-tier .pitch{font-size:13px;color:var(--muted);line-height:1.45;margin-bottom:20px;letter-spacing:-.005em}
+.hp-tier .price{font-size:44px;font-weight:700;color:var(--dark);letter-spacing:-.035em;line-height:1}
+.hp-tier .price small{font-size:14px;font-weight:400;color:var(--muted);letter-spacing:0}
+.hp-tier .per{font-size:12px;color:var(--muted);margin-top:4px;margin-bottom:24px}
+.hp-tier ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:28px;flex:1}
+.hp-tier li{font-size:13px;color:var(--dark);display:flex;align-items:flex-start;gap:9px;line-height:1.45;letter-spacing:-.005em}
+.hp-tier li::before{content:'✓';color:var(--green);font-weight:700;font-size:11px;flex:0 0 auto;margin-top:2px}
+
+/* final CTA */
+.hp-final{background:#0a0a0a;padding:120px 48px;text-align:center;position:relative;overflow:hidden}
+.hp-final::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse at 50% 100%, rgba(201,168,122,.08) 0%, transparent 50%),
+  radial-gradient(ellipse at 50% 0%, rgba(201,168,122,.04) 0%, transparent 40%);
+  pointer-events:none}
+.hp-final h2{font-family:var(--sans);font-size:52px;font-weight:700;color:#fff;letter-spacing:-.04em;line-height:1.06;max-width:680px;margin:0 auto 16px;position:relative;z-index:1}
+.hp-final h2 em{font-style:normal;background:linear-gradient(135deg,#e0c9a3,#c9a87a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hp-final .sub{font-size:16px;color:rgba(255,255,255,.35);max-width:440px;margin:0 auto 40px;line-height:1.6;position:relative;z-index:1;letter-spacing:-.005em}
+
+/* footer */
+.hp-footer{padding:36px 48px;background:#0a0a0a;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.hp-footer .copy{font-size:12px;color:rgba(255,255,255,.25);letter-spacing:-.005em}
+.hp-footer .flinks{display:flex;gap:22px;font-size:12px}
+.hp-footer .flinks a{color:rgba(255,255,255,.25);cursor:pointer;transition:color .15s;letter-spacing:-.005em}
+.hp-footer .flinks a:hover{color:rgba(255,255,255,.5)}
+
+/* responsive */
+@media(max-width:768px){
+  .hp-nav{padding:14px 20px}
+  .hp-hero{padding:60px 20px 80px}
+  .hp-hero h1{font-size:40px;letter-spacing:-.035em}
+  .hp-hero .lead{font-size:15px}
+  .hp-search-bar .go span{display:none}
+  .hp-search-bar .go::after{content:'Go'}
+  .hp-section{padding:72px 20px}
+  .hp-section .sh{font-size:32px}
+  .hp-stats{padding:60px 20px}
+  .hp-stat .val{font-size:36px}
+  .hp-final{padding:72px 20px}
+  .hp-final h2{font-size:34px}
+  .hp-footer{padding:28px 20px}
+  .hp-pullstat{padding:32px 28px}
+  .hp-pullstat .big{font-size:48px}
+}
+@media(max-width:480px){
+  .hp-hero h1{font-size:34px}
+  .hp-trust{flex-wrap:wrap;gap:14px}
+  .hp-pricing{gap:14px}
+}
+
+</style></head><body><nav class="switcher" id="switcher"> <span class="label">Painkiller · v1 wires</span> <button data-target="homepage" class="on">00 · Homepage</button><button data-target="integrated">01 · Integrated</button><button data-target="gate">02 · Gate</button> <button data-target="results">03 · Results</button> <button data-target="pricing">04 · Pricing</button> <button data-target="onboard">05 · Connect</button> <button data-target="dashboard">06 · Report</button> <button data-target="overview">07 · Briefing</button> <button data-target="expenses">08 · Transactions</button> <button data-target="improvements">09 · Improvements</button> <button data-target="vendors">10 · Vendors</button><button data-target="home">11 · Home</button><button data-target="home-firstvisit">12 · Home (first visit)</button><button data-target="onboard2">13 · Onboarding v2</button> <span style="margin-left:auto;font-size:10px;color:#5a5347;letter-spacing:.08em;text-transform:uppercase">↳ Click bell icon to see drawer</span></nav><!-- ========== NOTIFICATION DRAWER (shared across app screens) ========== --><div class="drawer-scrim" id="drawerScrim"></div><aside class="drawer" id="drawer"> <div class="drawer-head"> <div> <h3>Inbox</h3> <div class="sub">5 new · 11 total this week</div> </div> <button class="icon-btn" id="drawerClose"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg></button> </div> <div class="drawer-body"> <div class="notif unread"> <div class="dot"></div> <div class="body"> <div class="ttl">Ferguson charge ($1,247) looks like an improvement</div> <div class="det">Matched to a dining table + credenza invoice in your Gmail. Confirming saves ~$410 in taxes when you sell.</div> <div class="time">2 hours ago</div> <div class="inline-actions"> <button class="btn dark sm">Yes, improvement</button> <button class="btn ghost sm">Personal</button> </div> </div> </div> <div class="notif unread"> <div class="dot"></div> <div class="body"> <div class="ttl">Rivera Gardens recurring · create a rule?</div> <div class="det">We've seen this monthly charge 6 times. Auto-tag as maintenance going forward?</div> <div class="time">This morning</div> <div class="inline-actions"> <button class="btn dark sm">Always maintenance</button> <button class="btn ghost sm">Ask each time</button> </div> </div> </div> <div class="notif unread"> <div class="dot"></div> <div class="body"> <div class="ttl">Sync finished · 89 days back</div> <div class="det">342 transactions imported, 18 improvements proposed, $47,300 in protected value found.</div> <div class="time">Yesterday · 4:12 PM</div> </div> </div> <div class="notif unread"> <div class="dot"></div> <div class="body"> <div class="ttl">Your home value ticked up $18K this week</div> <div class="det">Three new sales within 0.5 mi · median $/sqft now $1,241 · your estimated value is $4.32M.</div> <div class="time">Yesterday</div> </div> </div> <div class="notif read"> <div class="dot"></div> <div class="body"> <div class="ttl">Gmail scan found 2 new invoices</div> <div class="det">Harrison Flooring and Reyes Construction — both linked to existing Plaid charges.</div> <div class="time">Apr 6</div> </div> </div> </div> <div class="drawer-foot"> <button class="btn ghost sm">Mark all read</button> <button class="btn ghost sm">Notification settings</button> </div></aside><!-- ========== GLOBAL SEARCH (cmd+K) ========== --><!-- STATE A: Search empty — just opened, nothing typed --><div class="search-scrim" id="searchScrim"> <div class="search-modal" role="dialog" aria-label="Search Painkiller"> <div class="search-input-row"> <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg> <input type="text" placeholder="Search transactions, vendors, improvements…" value="" id="searchInput"/> <span class="kbd">esc</span> </div> <div class="search-results" style="padding:32px 28px;text-align:center"> <div style="font-size:14px;color:var(--muted);line-height:1.6"> <div style="font-size:28px;margin-bottom:12px;opacity:.3">⌘K</div> Start typing to search across transactions, vendors, improvements, and rules. </div> <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center"> <span class="q-chip" style="cursor:pointer">Rivera Gardens</span> <span class="q-chip" style="cursor:pointer">pool</span> <span class="q-chip" style="cursor:pointer">missing receipts</span> <span class="q-chip" style="cursor:pointer">Chubb</span> <span class="q-chip" style="cursor:pointer">improvements over $5K</span> </div> </div> <div class="search-foot"> <span><span class="kbd">↑↓</span> navigate</span> <span><span class="kbd">↵</span> open</span> <span><span class="kbd">⌘K</span> toggle</span> <span style="margin-left:auto">Results update as you type</span> </div> </div></div><!-- ========== 00 HOMEPAGE ========== -->
+<section class="screen active" id="homepage">
+
+  <!-- NAV -->
+  <nav class="hp-nav">
+    <div class="brand"><img src="PainkillerLogo.svg" alt="Painkiller" class="brand-logo"/></div>
+    <div class="nav-links">
+      <a>Features</a>
+      <a>How it works</a>
+      <a>Pricing</a>
+      <a class="nav-cta">Get started free</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hp-hero">
+    <div class="hp-grid-bg"></div>
+    <div class="hp-badge"><span class="dot"></span> Now accepting founding members</div>
+    <h1>Your home is your biggest asset. Make it your <em>smartest.</em></h1>
+    <p class="lead">Track your property's value, spending, and every improvement dollar in one place &mdash; so when it's time to sell, refinance, or file taxes, the numbers are already there.</p>
+
+    <div class="hp-search">
+      <div class="hp-search-bar">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+        <input type="text" placeholder="Enter your home address"/>
+        <button class="go"><span>See your free report</span></button>
+      </div>
+    </div>
+    <div class="hp-trust">
+      <span>Free instant report</span>
+      <span>No signup required</span>
+      <span>30-second setup</span>
+    </div>
+
+    <div class="hp-scroll">Scroll to explore</div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="hp-section" style="background:#fff;border-top:1px solid var(--border)">
+    <div class="inner">
+      <div class="eyebrow dark">What Painkiller does</div>
+      <div class="sh dark">Four numbers that run <em>your largest asset.</em></div>
+      <div class="slead dark">Everything a financial advisor does for your portfolio, Painkiller does for the house you own.</div>
+
+      <div class="hp-feat-grid">
+        <div class="hp-feat">
+          <div class="ic v1">$</div>
+          <h4>Property value, always current</h4>
+          <p>Your home's estimated value, refreshed with every nearby sale. Comps, price per square foot, and trend lines &mdash; the net worth screen for your house.</p>
+          <span class="tag">Updated weekly from MLS data</span>
+        </div>
+        <div class="hp-feat">
+          <div class="ic v2">~</div>
+          <h4>Burn rate &amp; cash flow</h4>
+          <p>What your house actually costs you &mdash; weekly, monthly, yearly. Maintenance, utilities, insurance, and recurring vendors, all separated and trended over time.</p>
+          <span class="tag">Auto-classified from your bank</span>
+        </div>
+        <div class="hp-feat">
+          <div class="ic v3">Tx</div>
+          <h4>Every expense, classified</h4>
+          <p>Charges pulled from Plaid, enriched with receipts from Gmail, and classified by an AI agent. Upkeep vs. upgrade &mdash; the distinction that actually matters at tax time.</p>
+          <span class="tag">Receipts matched automatically</span>
+        </div>
+        <div class="hp-feat">
+          <div class="ic v4">Bs</div>
+          <h4>Capital improvement ledger</h4>
+          <p>The feature nobody else has. Every improvement dollar captured in real time with receipts attached &mdash; so when you sell, the IRS sees your basis, not just the gain.</p>
+          <span class="tag">Median tax savings: $17,500</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="hp-section" style="background:#fafaf9;border-top:1px solid var(--border)">
+    <div class="inner">
+      <div class="eyebrow dark">How it works</div>
+      <div class="sh dark">Set it up in 90 seconds. <em>Let it run forever.</em></div>
+      <div class="slead dark">No spreadsheets. No data entry. Connect once and Painkiller does the rest.</div>
+
+      <div class="hp-steps" style="border:1px solid var(--border);border-radius:20px;overflow:hidden;background:var(--border)">
+        <div class="hp-step">
+          <div class="num">01</div>
+          <div class="lab">90 seconds</div>
+          <h5>Connect your accounts</h5>
+          <p>Link your bank cards via Plaid and optionally connect Gmail for invoice matching. No credentials stored, read-only access, bank-level encryption.</p>
+        </div>
+        <div class="hp-step">
+          <div class="num">02</div>
+          <div class="lab">Automatic</div>
+          <h5>The agent classifies everything</h5>
+          <p>Every charge gets sorted into maintenance, improvements, utilities, or insurance. Invoices in your inbox get matched to card charges. Your cost basis builds itself.</p>
+        </div>
+        <div class="hp-step">
+          <div class="num">03</div>
+          <div class="lab">A few taps a week</div>
+          <h5>You confirm, we file</h5>
+          <p>When the agent isn't sure &mdash; was that $1,247 at Ferguson a remodel or a repair? &mdash; it asks you one question. One tap and it's filed forever.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="hp-stats">
+    <div class="inner">
+      <div class="grid">
+        <div class="hp-stat">
+          <div class="val">$17.5K</div>
+          <div class="lbl">Median tax overpayment at sale from untracked improvements</div>
+        </div>
+        <div class="hp-stat">
+          <div class="val">342</div>
+          <div class="lbl">Transactions classified automatically in the first sync</div>
+        </div>
+        <div class="hp-stat">
+          <div class="val">89%</div>
+          <div class="lbl">Of improvement receipts matched without manual upload</div>
+        </div>
+        <div class="hp-stat">
+          <div class="val">30s</div>
+          <div class="lbl">To get your first free property intelligence report</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHO IT'S FOR -->
+  <div class="hp-section" style="background:#fff;border-top:1px solid var(--border)">
+    <div class="inner">
+      <div class="hp-audience">
+        <div>
+          <div class="eyebrow dark">Who it's for</div>
+          <div class="sh dark">If you've ever handed your CPA a <em>shoebox</em>, this is for you.</div>
+          <div class="slead dark" style="margin-bottom:32px">Built for homeowners who have real estate worth tracking &mdash; but don't have a family office handling it for them.</div>
+
+          <div class="hp-checks">
+            <div class="hp-check">
+              <div class="mark">&#10003;</div>
+              <div class="txt">You own property worth <strong>$500K or more</strong> &mdash; or a portfolio that adds up.</div>
+            </div>
+            <div class="hp-check">
+              <div class="mark">&#10003;</div>
+              <div class="txt">You work with a <strong>CPA or accountant</strong> but everything routes through email and end-of-year panic.</div>
+            </div>
+            <div class="hp-check">
+              <div class="mark">&#10003;</div>
+              <div class="txt">You know you're leaving money on the table at <strong>sale time and tax time</strong> but don't know where.</div>
+            </div>
+            <div class="hp-check">
+              <div class="mark">&#10003;</div>
+              <div class="txt">You'd rather an AI agent <strong>ask you 3 questions a week</strong> than build a spreadsheet.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hp-pullstat">
+          <div class="eyebrow" style="color:rgba(255,255,255,.3);font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600">What we hear most</div>
+          <div class="big">$17,500</div>
+          <div class="desc">The median capital gains tax the average homeowner overpays at sale &mdash; because they didn't track improvements in real time. Painkiller's job is to make that number zero.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="hp-quote">
+    <div class="inner">
+      <blockquote>&ldquo;I spent two weekends digging through emails trying to find receipts before meeting my CPA. With Painkiller, everything was <em>already there.</em>&rdquo;</blockquote>
+      <div class="attr"><strong>Early beta user</strong> &middot; Los Angeles, CA &middot; $4.2M property</div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="hp-section" style="background:#fff">
+    <div class="inner">
+      <div class="eyebrow dark">Pricing</div>
+      <div class="sh dark">Less than what you're <em>leaving on the table.</em></div>
+      <div class="slead dark">Founding seats are capped and priced to never move &mdash; early believers get the lifetime rate.</div>
+
+      <div class="hp-pricing">
+        <div class="hp-tier">
+          <div class="name">Founding Member</div>
+          <div class="pitch">Full product, locked forever. Direct line to the team. Help shape what gets built next.</div>
+          <div class="price">$19<small>/mo</small></div>
+          <div class="per">Locked for life &middot; limited seats</div>
+          <ul>
+            <li>Everything in Home plan</li>
+            <li>Founding member pricing forever</li>
+            <li>Direct access to the team</li>
+            <li>Early access to new features</li>
+            <li>Shape the product roadmap</li>
+          </ul>
+          <button class="btn dark" style="width:100%;justify-content:center">Claim a founding seat</button>
+        </div>
+        <div class="hp-tier pop">
+          <div class="name">Home</div>
+          <div class="pitch">One property. Full agent, full features. Everything you need to run your home like an asset.</div>
+          <div class="price">$29<small>/mo</small></div>
+          <div class="per">Per property</div>
+          <ul>
+            <li>Property value tracking</li>
+            <li>Burn rate &amp; cash flow</li>
+            <li>Expense classification via AI</li>
+            <li>Capital improvement ledger</li>
+            <li>Receipt matching from Gmail</li>
+            <li>CPA-ready export</li>
+          </ul>
+          <button class="btn dark" style="width:100%;justify-content:center">Start with one address</button>
+        </div>
+        <div class="hp-tier">
+          <div class="name">Portfolio</div>
+          <div class="pitch">Up to five properties, shared CPA export, entity tagging for LLCs and trusts.</div>
+          <div class="price">$99<small>/mo</small></div>
+          <div class="per">Up to 5 properties</div>
+          <ul>
+            <li>Everything in Home plan</li>
+            <li>Multi-property dashboard</li>
+            <li>Entity tagging (LLC, trust)</li>
+            <li>Grouped CPA exports</li>
+            <li>Portfolio-level analytics</li>
+            <li>Priority support</li>
+          </ul>
+          <button class="btn ghost" style="width:100%;justify-content:center">Start with a portfolio</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="hp-final">
+    <h2>Your home is already working for you. <em>Now make it show its work.</em></h2>
+    <p class="sub">Enter your address to get a free instant property intelligence report. No signup, no credit card, no commitment.</p>
+    <div class="hp-search" style="margin:0 auto 20px">
+      <div class="hp-search-bar">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+        <input type="text" placeholder="Enter your home address"/>
+        <button class="go"><span>See your free report</span></button>
+      </div>
+    </div>
+    <div class="hp-trust" style="position:relative;z-index:1">
+      <span>Free forever for the report</span>
+      <span>$19/mo to unlock everything</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="hp-footer">
+    <div class="copy">&copy; 2026 Painkiller. All rights reserved.</div>
+    <div class="flinks">
+      <a>Privacy</a>
+      <a>Terms</a>
+      <a>Security</a>
+      <a>Contact</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ========== 01 ADDRESS GATE ========== -->
+<section class="screen" id="integrated">
 <style> #integrated .ov-shell{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh;background:#fff;transition:grid-template-columns .22s ease} #integrated .ov-body{min-width:0} #integrated .ov-nav{background:#f1f1ef;border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 14px;position:sticky;top:0;height:100vh;font-family:var(--sans);overflow:hidden} #integrated .ov-nav .brand-logo{mix-blend-mode:multiply;background:transparent} #integrated .ov-item:hover{background:#e7e7e4} #integrated .ov-util .icon-btn:hover{background:#e7e7e4} #integrated .ov-user:hover{background:#e7e7e4} #integrated .ov-brand{display:flex;align-items:center;font-family:var(--sans);font-size:18px;font-weight:700;color:var(--dark);letter-spacing:-.03em;padding:4px 10px 20px} #integrated .ov-brand .mark{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#7c3aed 0%,#3b82f6 100%);margin-right:8px} #integrated .ov-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--ink,#3f3a36);cursor:pointer;letter-spacing:-.005em;margin-bottom:1px;transition:background .1s;color:#3f3a36} #integrated .ov-item:hover{background:#f0eee9} #integrated .ov-item.active{background:#fff;color:var(--dark);font-weight:600;box-shadow:0 0 0 1px var(--border),0 1px 2px rgba(0,0,0,.03)} #integrated .ov-item svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;flex:0 0 16px;opacity:.7} #integrated .ov-item.active svg{opacity:1} #integrated .ov-badge{margin-left:auto;font-family:'SF Mono',Menlo,monospace;font-size:10px;background:var(--red,#dc2626);color:#fff;padding:1px 6px;border-radius:99px;font-weight:500} #integrated .ov-navbottom{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding-top:10px;border-top:1px solid var(--border)} #integrated .ov-util{display:flex;gap:6px;padding:4px 6px} #integrated .ov-util .icon-btn{position:relative;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;cursor:pointer;background:transparent;border:0} #integrated .ov-util .icon-btn:hover{background:#f0eee9} #integrated .ov-util .icon-btn svg{width:15px;height:15px;stroke:#3f3a36;stroke-width:1.8;fill:none} #integrated .ov-util .icon-btn .dot{position:absolute;top:7px;right:7px;width:6px;height:6px;border-radius:50%;background:var(--red,#dc2626);border:1.5px solid #fafaf7} #integrated .ov-user{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer} #integrated .ov-user:hover{background:#f0eee9} #integrated .ov-avatar{width:28px;height:28px;border-radius:99px;background:var(--dark);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:600;flex:0 0 28px} #integrated .ov-user-txt{font-size:12.5px;font-weight:500;color:var(--dark);line-height:1.2;min-width:0;overflow:hidden} #integrated .ov-user-txt .sub{font-size:10.5px;color:var(--muted);font-weight:400;margin-top:1px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden} /* New hero upload card (Origin-inspired gradient) */ #integrated .ov-hero{position:relative;border-radius:18px;overflow:hidden;padding:22px 22px 20px;background:linear-gradient(135deg,#e0e7ff 0%,#c7d2fe 40%,#a5b4fc 75%,#8b93f5 100%);color:var(--dark);cursor:pointer;margin-bottom:16px;isolation:isolate} #integrated .ov-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(255,255,255,.45),transparent 60%);z-index:0} #integrated .ov-hero > *{position:relative;z-index:1} #integrated .ov-hero .eye{display:flex;justify-content:space-between;align-items:center;margin-bottom:42px} #integrated .ov-hero .eye-lbl{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dark);opacity:.72} #integrated .ov-hero .eye-x{background:none;border:0;cursor:pointer;padding:2px} #integrated .ov-hero .eye-x svg{width:14px;height:14px;stroke:var(--dark);stroke-width:2;fill:none;opacity:.55} #integrated .ov-hero h3{font-family:var(--sans);font-size:24px;font-weight:700;line-height:1.1;letter-spacing:-.03em;color:var(--dark);margin-bottom:8px} #integrated .ov-hero .sub{font-family:var(--sans);font-size:12.5px;color:#1f1d1a;line-height:1.5;margin-bottom:18px;max-width:260px;opacity:.82} #integrated .ov-hero .btns{display:flex;gap:6px;flex-wrap:wrap} #integrated .ov-hero .hc-btn{display:inline-flex;align-items:center;gap:5px;font-family:var(--sans);font-size:12px;font-weight:600;padding:8px 14px;border-radius:99px;cursor:pointer;border:1px solid} #integrated .ov-hero .hc-btn.solid{color:#fff;background:var(--dark);border-color:var(--dark)} #integrated .ov-hero .hc-btn.ghost{color:var(--dark);background:rgba(255,255,255,.7);border-color:rgba(15,15,14,.12);backdrop-filter:blur(6px)} #integrated .ov-hero .hc-btn svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none} /* ─── Utility Top Bar ─────────────────────────────────────── */ #integrated .ov-topbar{display:flex;align-items:center;gap:14px;padding:14px 32px;border-bottom:1px solid var(--border);background:#fff;position:sticky;top:0;z-index:5;font-family:var(--sans)} #integrated .ov-search{flex:1;max-width:560px;display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--light,#f4f3f0);border:1px solid transparent;border-radius:10px;cursor:text;transition:background .1s} #integrated .ov-search:hover{background:#ececea} #integrated .ov-search svg{width:14px;height:14px;stroke:var(--muted);stroke-width:2;fill:none;flex:0 0 14px} #integrated .ov-search input{flex:1;border:0;outline:0;background:transparent;font-family:inherit;font-size:13px;color:var(--dark)} #integrated .ov-search input::placeholder{color:var(--muted)} #integrated .ov-search .kbd{font-family:'SF Mono',Menlo,monospace;font-size:10px;color:var(--muted);background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px 5px} #integrated .ov-topright{margin-left:auto;display:flex;align-items:center;gap:8px} #integrated .ov-topright .icon-btn{position:relative;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;cursor:pointer;background:transparent;border:0} #integrated .ov-topright .icon-btn:hover{background:var(--light,#f4f3f0)} #integrated .ov-topright .icon-btn svg{width:16px;height:16px;stroke:var(--ink2,#3f3a36);stroke-width:1.8;fill:none} #integrated .ov-topright .icon-btn .dot{position:absolute;top:8px;right:8px;width:6px;height:6px;border-radius:50%;background:var(--red,#dc2626);border:1.5px solid #fff} #integrated .ov-cta{display:flex;align-items:center;gap:6px;background:var(--dark);color:#fff;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:99px;cursor:pointer;letter-spacing:-.005em;border:0;font-family:inherit} #integrated .ov-cta:hover{background:#000} #integrated .ov-cta svg{width:13px;height:13px;stroke:#fff;stroke-width:2;fill:none} #integrated .ov-topbar .ov-avatar{width:32px;height:32px;font-size:12px} @media (max-width:640px){ #integrated .ov-topbar{padding:12px 16px 12px 60px;gap:8px} #integrated .ov-search{max-width:none} #integrated .ov-search .kbd{display:none} #integrated .ov-cta span{display:none} #integrated .ov-cta{padding:8px 10px} } /* ─── Upload modal ─────────────────────────────────────── */ #integrated .um-scrim{position:fixed;inset:0;background:rgba(15,15,14,.45);backdrop-filter:blur(4px);z-index:60;display:none;align-items:center;justify-content:center;padding:24px;font-family:var(--sans)} #integrated .um-scrim.open{display:flex;animation:umFadeIn .18s ease} @keyframes umFadeIn{from{opacity:0}to{opacity:1}} #integrated .um-modal{background:#fff;border-radius:20px;width:100%;max-width:520px;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.24);animation:umRise .22s ease} @keyframes umRise{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}} #integrated .um-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px} #integrated .um-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted,#78716c)} #integrated .um-close{background:none;border:0;cursor:pointer;padding:4px;border-radius:6px} #integrated .um-close:hover{background:var(--light,#f4f3f0)} #integrated .um-close svg{width:16px;height:16px;stroke:var(--ink2,#3f3a36);stroke-width:2;fill:none} #integrated .um-title{font-size:22px;font-weight:700;color:var(--dark);letter-spacing:-.025em;margin-bottom:6px} #integrated .um-sub{font-size:13px;color:var(--muted,#78716c);line-height:1.5;margin-bottom:18px} #integrated .um-drop{display:block;border:2px dashed var(--border2,#dcdad5);border-radius:14px;padding:36px 20px;text-align:center;background:#fafaf7;transition:border-color .15s,background .15s;cursor:pointer} #integrated .um-drop br{display:none} #integrated .um-drop > *{display:block} #integrated .um-drop .um-drop-ic{display:grid} #integrated .um-drop:hover{border-color:#7c3aed;background:#f3e8ff} #integrated .um-drop.dragover{border-color:#7c3aed;border-style:solid;background:#ede4ff;transform:scale(1.01)} #integrated .um-drop-ic{width:52px;height:52px;border-radius:14px;background:#f3e8ff;display:grid;place-items:center;margin:0 auto 14px;transition:background .15s} #integrated .um-drop-ic svg{width:24px;height:24px;stroke:#7c3aed;stroke-width:1.8;fill:none} #integrated .um-drop.dragover .um-drop-ic{background:#7c3aed} #integrated .um-drop.dragover .um-drop-ic svg{stroke:#fff} #integrated .um-drop-big{font-size:16px;font-weight:600;color:var(--dark);letter-spacing:-.015em;margin-bottom:4px} #integrated .um-drop-small{font-size:12.5px;color:var(--muted,#78716c);margin-bottom:16px} #integrated .um-browse{display:inline-flex !important;align-items:center;gap:6px;font-family:var(--sans);font-size:12.5px;font-weight:600;padding:9px 18px;border-radius:99px;cursor:pointer;border:1px solid var(--dark);background:var(--dark);color:#fff;margin:0 auto} #integrated .um-browse:hover{background:#000} #integrated .um-browse svg{width:13px;height:13px;stroke:#fff;stroke-width:2;fill:none} #integrated .um-or{font-size:11px;color:var(--muted,#78716c);margin:12px 0 4px;letter-spacing:.04em;text-transform:uppercase;font-weight:500} #integrated .um-foot{margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:11.5px;color:var(--muted,#78716c);line-height:1.55;text-align:center} /* Mobile trigger — visible only on narrow widths */ #integrated .ov-menu-trigger{display:none;position:fixed;top:12px;left:12px;z-index:50;width:38px;height:38px;border-radius:10px;background:#fff;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.06);align-items:center;justify-content:center;cursor:pointer;padding:0} #integrated .ov-menu-trigger svg{width:18px;height:18px;stroke:var(--dark);stroke-width:2;fill:none} #integrated .ov-scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:39;opacity:0;transition:opacity .18s} /* ─── Responsive breakpoints ─────────────────────────────────────── */ /* Large desktop — keep as-is */ /* Collapse toggle button (inside left nav, next to logo) */ #integrated .ov-brand{justify-content:space-between} #integrated .ov-nav-toggle{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;cursor:pointer;background:transparent;border:0;flex:0 0 28px;margin-left:auto} #integrated .ov-nav-toggle:hover{background:#e7e7e4} #integrated .ov-nav-toggle svg{width:15px;height:15px;stroke:var(--ink2,#3f3a36);stroke-width:1.8;fill:none;transition:transform .2s ease}     /* Collapsed nav state (user-toggled, any width) */            /* Medium desktop: tighten rail + padding */ @media (max-width:1280px){ #integrated .app{padding:28px 32px 72px !important;gap:24px !important;grid-template-columns:minmax(0,1fr) 320px !important} } /* Sticky hero on desktop (>1180px) so the upload CTA stays visible as user scrolls main */ @media (min-width:1181px){ #integrated .ov-hero{position:sticky;top:80px} #integrated .chat-rail{align-self:start} } /* Narrow desktop / tablet landscape: stack rail below main. Single-column flex to avoid label/card pairing bugs. */ @media (max-width:1180px){ #integrated .app{grid-template-columns:minmax(0,1fr) !important;gap:20px !important;padding:24px 28px 72px !important} #integrated .chat-main{max-width:none;padding:24px 0 40px;margin:0} #integrated .chat-rail{max-width:none !important;padding:0;display:flex;flex-direction:column;gap:12px} #integrated .chat-rail > *{min-width:0;margin-top:0 !important} #integrated .ov-hero{margin-bottom:0} } /* Tablet portrait: auto-collapse nav to icon rail */ @media (max-width:860px){ #integrated .ov-shell{grid-template-columns:68px minmax(0,1fr)} #integrated .ov-nav{padding:16px 8px} #integrated .ov-brand{justify-content:center;padding:4px 0 16px} #integrated .ov-brand .brand-logo{height:18px}  #integrated .ov-item svg{width:18px;height:18px;opacity:.85} #integrated .ov-item.active svg{opacity:1} #integrated .ov-badge{position:absolute;margin:0;top:4px;right:4px;font-size:9px;padding:1px 4px} #integrated .ov-util{justify-content:center;padding:4px 0} #integrated .ov-user-txt{display:none} #integrated .ov-user{justify-content:center;padding:8px 0} #integrated .ov-user .av-menu{left:100%;bottom:0;margin-left:8px} #integrated .ov-nav-toggle{display:none} } /* Mobile: hidden drawer nav + hamburger */ @media (max-width:640px){ /* Reorder rail: bills first, then auto-tagged ("Missing receipts"-style list), hero last. */ #integrated .chat-rail > *{order:2} #integrated .chat-rail > .ov-hero{order:99} #integrated .ov-hero{position:static !important} #integrated .ov-shell{grid-template-columns:minmax(0,1fr)} #integrated .ov-nav{position:fixed;top:0;left:0;bottom:0;width:248px;transform:translateX(-100%);transition:transform .22s ease;z-index:40;padding:18px 14px;box-shadow:2px 0 24px rgba(0,0,0,.08)} #integrated .ov-brand{justify-content:flex-start;padding:4px 10px 18px} #integrated .ov-brand .brand-logo{height:22px} #integrated .ov-item{justify-content:flex-start;padding:8px 10px;gap:10px;font-size:13.5px;position:static} #integrated .ov-item svg{width:16px;height:16px} #integrated .ov-badge{position:static;margin-left:auto;font-size:10px;padding:1px 6px} #integrated .ov-util{justify-content:flex-start;padding:4px 6px} #integrated .ov-user-txt{display:block} #integrated .ov-user{justify-content:flex-start;padding:8px 10px} #integrated .ov-menu-trigger{display:flex} body.ov-nav-open #integrated .ov-nav{transform:translateX(0)} body.ov-nav-open #integrated .ov-scrim{display:block;opacity:1} #integrated .app{padding:56px 16px 72px !important;gap:16px !important;grid-template-columns:minmax(0,1fr) !important} #integrated .chat-rail{grid-template-columns:1fr !important} #integrated .ov-hero h3{font-size:22px} #integrated .ov-hero .sub{max-width:none} #integrated .ov-hero .eye{margin-bottom:32px} #integrated .chat-greeting{font-size:28px !important;line-height:1.08} #integrated .macro-row{flex-wrap:wrap;gap:12px !important} #integrated .macro-row .macro-sep{display:none} #integrated .ov-topbar{padding:12px 12px 12px 56px;gap:8px;position:sticky} #integrated .ov-search .kbd{display:none} #integrated .ov-cta span{display:none} #integrated .ov-cta{padding:8px 10px} #integrated .ov-nav-toggle{display:none} #integrated .ov-topright{gap:4px} } /* Small phone: tighten further */ @media (max-width:420px){ #integrated .app{padding:56px 12px 72px !important} #integrated .ov-hero{padding:18px 18px 16px} #integrated .ov-hero h3{font-size:20px} #integrated .ov-hero .sub{font-size:12px;margin-bottom:14px} #integrated .ov-hero .btns{gap:6px} #integrated .ov-hero .hc-btn{font-size:11.5px;padding:7px 12px} }     --cream:#ffffff;
     --cream2:#faf8f2;
     --light:#f4f2ec;
