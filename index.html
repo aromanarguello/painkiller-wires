@@ -971,6 +971,137 @@
 #integrated .ov-nav { background:#f1f1ef !important; z-index:5; }
 #integrated .ov-shell { display:grid !important; grid-template-columns:232px minmax(0,1fr) !important; }
 #integrated .ov-body { min-width:0; overflow-x:hidden; }
+
+/* ============= MOBILE RESPONSIVE · CONTENT COMPONENTS ============= */
+/* Tablet (<=768px) — content grids start simplifying */
+@media (max-width:768px){
+  .value-hero{padding:24px 20px}
+  .vh-num{font-size:44px}
+  .vh-top{flex-direction:column;gap:14px}
+  .sell{padding:24px 20px}
+  .sell-h .net .nv{font-size:34px}
+  .home-hero-photo{height:220px}
+  .home-hero-photo .ph-tag .addr{font-size:18px}
+}
+
+/* Phone (<=640px) — single-column content, tighter spacing */
+@media (max-width:640px){
+  /* Value hero */
+  .value-hero{padding:20px 16px}
+  .vh-num{font-size:38px}
+  .vh-sub{flex-wrap:wrap;gap:8px}
+  .vh-periods{flex-direction:column;gap:12px;align-items:flex-start}
+  .vh-periods .left{flex-wrap:wrap}
+  .vh-overlay{flex-wrap:wrap}
+  .vh-annot{max-width:110px;font-size:9.5px;padding:6px 8px}
+
+  /* Home hero photo */
+  .home-hero-photo{height:200px}
+  .home-hero-photo .ph-actions{gap:4px}
+  .home-hero-photo .ph-actions button{font-size:10px;padding:6px 10px}
+
+  /* Sell card */
+  .sell{padding:20px 16px}
+  .sell-h{flex-direction:column;align-items:flex-start;gap:10px}
+  .sell-h .net .nv{font-size:30px}
+  .sell-grid{grid-template-columns:1fr !important;gap:16px}
+  .sell-break{flex-direction:column;gap:12px}
+
+  /* Comps */
+  .comps-row{grid-template-columns:1fr !important;gap:12px}
+
+  /* Equity */
+  .equity-grid{grid-template-columns:1fr 1fr !important;gap:16px}
+  .eq .v{font-size:20px}
+
+  /* Tax */
+  .tax-grid{grid-template-columns:1fr !important;gap:16px}
+
+  /* Insurance */
+  .ins-top{grid-template-columns:1fr !important;gap:12px}
+  .ins-chat-h{flex-direction:column;align-items:flex-start;gap:8px}
+  .ins-answer{padding:14px 16px}
+
+  /* Gallery */
+  .gal-row{grid-template-columns:repeat(2,1fr) !important;gap:8px}
+
+  /* Appeal / callout */
+  .appeal{flex-direction:column;gap:10px}
+  .appeal .cta{align-self:flex-start}
+
+  /* Opportunities */
+  .opp{flex-direction:column;gap:8px}
+  .opp .cta{align-self:flex-start}
+
+  /* Rail cards */
+  .rail-card{padding:14px 16px}
+
+  /* Facts grid gap */
+  .facts-grid{gap:0 16px}
+
+  /* Onboarding */
+  .ob-shell{padding:32px 16px 80px}
+  .ob-h{font-size:26px}
+  .ob-grid{grid-template-columns:1fr !important}
+  .ob-bottom{flex-direction:column;gap:10px;align-items:stretch;text-align:center}
+  .ob-bottom .nothing{margin-left:0}
+
+  /* Modal */
+  .modal{padding:24px 20px 22px;border-radius:14px}
+  .modal h3{font-size:18px}
+  .modal-foot{flex-wrap:wrap;gap:8px}
+  .modal-foot .send{font-size:10px}
+
+  /* First visit prompt */
+  .firstv{flex-direction:column;gap:12px;text-align:center}
+  .firstv .acts{justify-content:center}
+}
+
+/* Small phone (<=420px) — tightest spacing */
+@media (max-width:420px){
+  .vh-num{font-size:32px}
+  .home-hero-photo{height:160px}
+  .home-hero-photo .ph-tag .addr{font-size:15px}
+  .home-hero-photo .ph-actions{flex-direction:column;gap:3px}
+  .home-hero-photo .ph-actions button{font-size:9px;padding:5px 8px}
+  .sell-h .net .nv{font-size:26px}
+  .equity-grid{grid-template-columns:1fr !important;gap:14px}
+  .gal-row{grid-template-columns:repeat(2,1fr) !important;gap:6px}
+  .ins-pills{gap:6px}
+  .ins-pill{padding:6px 10px;font-size:11px}
+  .ob-h{font-size:22px}
+  .ob-sub{font-size:13px}
+}
+
+/* Integrated-specific: fix sidebar and inline grids on mobile */
+@media (max-width:860px){
+  #integrated .ov-shell{grid-template-columns:68px minmax(0,1fr) !important}
+  #integrated .ov-nav{padding:16px 8px !important}
+  #integrated .ov-item{justify-content:center;padding:10px 0;gap:0;font-size:0 !important;position:relative}
+  #integrated .ov-item svg{width:18px;height:18px;opacity:.85}
+  #integrated .ov-badge{position:absolute;margin:0;top:4px;right:4px;font-size:9px;padding:1px 4px}
+  #integrated .ov-user-txt{display:none}
+  #integrated .ov-user{justify-content:center;padding:8px 0}
+  #integrated .ov-brand{justify-content:center;padding:4px 0 16px}
+}
+@media (max-width:640px){
+  #integrated .ov-shell{grid-template-columns:minmax(0,1fr) !important}
+  #integrated .ov-nav{position:fixed !important;top:0;left:0;bottom:0;width:248px;transform:translateX(-100%);transition:transform .22s ease;z-index:40;padding:18px 14px !important;box-shadow:2px 0 24px rgba(0,0,0,.08)}
+  #integrated .ov-menu-trigger{display:flex !important}
+  #integrated .ov-item{justify-content:flex-start !important;padding:8px 10px !important;gap:10px !important;font-size:13.5px !important;position:static !important}
+  #integrated .ov-badge{position:static !important;margin-left:auto}
+  #integrated .ov-user-txt{display:block !important}
+  #integrated .ov-user{justify-content:flex-start !important;padding:8px 10px !important}
+  #integrated .ov-brand{justify-content:flex-start !important;padding:4px 10px 18px !important}
+  body.ov-nav-open #integrated .ov-nav{transform:translateX(0) !important}
+  body.ov-nav-open #integrated .ov-scrim{display:block !important;opacity:1}
+  #integrated [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr !important}
+  #integrated .app{padding:12px 16px 72px !important}
+}
+@media (max-width:420px){
+  #integrated .app{padding:12px 12px 60px !important}
+}
+
 </style>
 <div class="ov-shell">
 <aside class="ov-nav">
