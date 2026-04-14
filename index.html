@@ -971,7 +971,8 @@
 #integrated #ix-chat.active { display:flex !important; flex-direction:column; }
 
 /* ══════════ CONVERSATION PAGE ══════════ */
-.conv-page{position:fixed;top:0;bottom:0;right:0;left:232px;display:flex;flex-direction:column;font-family:var(--sans);background:#fff;z-index:2}
+#ix-chat{height:100vh;overflow:hidden}
+.conv-page{display:flex;flex-direction:column;height:100%;font-family:var(--sans);background:#fff}
 .conv-topbar{height:54px;min-height:54px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:12px}
 .conv-topbar-title{font-size:14px;font-weight:600;color:var(--dark)}
 .conv-topbar-back{display:none;width:32px;height:32px;border:none;background:none;cursor:pointer;border-radius:8px;color:var(--dark)}
@@ -1020,8 +1021,7 @@
 .ov-nav-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:16px 20px 6px;font-weight:600}
 .ov-nav-chat{font-size:12px;padding:6px 20px 6px 36px;color:var(--muted);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .15s}
 .ov-nav-chat:hover{color:var(--dark)}
-@media(max-width:860px){.conv-page{left:68px}}
-@media(max-width:640px){.conv-page{left:0}.conv-topbar-back{display:flex}.conv-empty-chips{flex-direction:column;align-items:stretch}.conv-empty-chip{text-align:left}}
+@media(max-width:640px){.conv-topbar-back{display:flex}.conv-empty-chips{flex-direction:column;align-items:stretch}.conv-empty-chip{text-align:left}}
 #integrated .ov-nav { background:#f1f1ef !important; z-index:5; }
 #integrated .ov-shell { display:grid !important; grid-template-columns:232px minmax(0,1fr) !important; }
 #integrated .ov-body { min-width:0; overflow-x:hidden; }
@@ -1167,7 +1167,7 @@
 <div class="ov-item" data-view="ix-improvements" onclick="ixNav('ix-improvements')"><svg viewBox="0 0 24 24"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 14.8 7.1 17.2l.9-5.5-4-3.9 5.5-.8z"/></svg>Improvements</div>
 <div class="ov-item" data-view="ix-vendors" onclick="ixNav('ix-vendors')"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Vendors</div>
 <div class="ov-item" data-view="ix-documents" onclick="ixNav('ix-documents')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>Documents</div>
-<div class="ov-item" data-view="ix-chat" onclick="ixNav('ix-chat')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>New Conversation</div>
+<div class="ov-item" data-view="ix-chat" onclick="resetConversation()"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>New Conversation</div>
 <div class="ov-nav-label">Recent</div>
 <div class="ov-nav-chat" onclick="startConversation('Break down spending')">Break down spending</div>
 <div class="ov-nav-chat" onclick="startConversation('Upcoming bills')">Upcoming bills</div>
@@ -2052,6 +2052,36 @@ tr:hover .vn-dots{opacity:1}
 </div>
 </div>
 
+<!-- ══════════ CONVERSATION VIEW ══════════ -->
+<div class="ix-view" id="ix-chat">
+<div class="conv-page">
+  <div class="conv-topbar">
+    <button class="conv-topbar-back" onclick="ixNav('ix-briefing')"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="conv-topbar-title">Conversation</div>
+  </div>
+  <div class="conv-empty" id="convEmpty">
+    <div class="conv-empty-logo"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+    <h2>What can I help with?</h2>
+    <p>Ask about your property, spending, taxes, vendors, or anything else about 1247 Mulholland.</p>
+    <div class="conv-empty-chips">
+      <button class="conv-empty-chip" onclick="startConversation('Break down spending')">Break down spending</button>
+      <button class="conv-empty-chip" onclick="startConversation('Calculate tax savings')">Calculate tax savings</button>
+      <button class="conv-empty-chip" onclick="startConversation('Missing receipts')">Missing receipts</button>
+      <button class="conv-empty-chip" onclick="startConversation('Upcoming bills')">Upcoming bills</button>
+      <button class="conv-empty-chip" onclick="startConversation('Comps near me')">Comps near me</button>
+      <button class="conv-empty-chip" onclick="startConversation('Duplicate charges')">Duplicate charges</button>
+    </div>
+  </div>
+  <div class="conv-thread" id="convThread"></div>
+  <div class="conv-input-area">
+    <div class="conv-input-wrap">
+      <input class="conv-input" id="convInput" placeholder="Ask about your property..." onkeydown="if(event.key==='Enter'&&this.value.trim()){startConversation(this.value.trim());this.value=''}">
+      <button class="conv-send" onclick="var i=document.getElementById('convInput');if(i.value.trim()){startConversation(i.value.trim());i.value=''}"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
+    </div>
+  </div>
+</div>
+</div>
+
 </div>
 <!-- Vendor detail scrim -->
 <div class="vn-scrim" id="vnScrim" onclick="vnCloseDetail()"></div>
@@ -2147,36 +2177,6 @@ tr:hover .vn-dots{opacity:1}
     </div>
 
   </div>
-</div>
-
-<!-- ══════════ CONVERSATION VIEW ══════════ -->
-<div class="ix-view" id="ix-chat">
-<div class="conv-page">
-  <div class="conv-topbar">
-    <button class="conv-topbar-back" onclick="ixNav('ix-briefing')"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
-    <div class="conv-topbar-title">Conversation</div>
-  </div>
-  <div class="conv-empty" id="convEmpty">
-    <div class="conv-empty-logo"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
-    <h2>What can I help with?</h2>
-    <p>Ask about your property, spending, taxes, vendors, or anything else about 1247 Mulholland.</p>
-    <div class="conv-empty-chips">
-      <button class="conv-empty-chip" onclick="startConversation('Break down spending')">Break down spending</button>
-      <button class="conv-empty-chip" onclick="startConversation('Calculate tax savings')">Calculate tax savings</button>
-      <button class="conv-empty-chip" onclick="startConversation('Missing receipts')">Missing receipts</button>
-      <button class="conv-empty-chip" onclick="startConversation('Upcoming bills')">Upcoming bills</button>
-      <button class="conv-empty-chip" onclick="startConversation('Comps near me')">Comps near me</button>
-      <button class="conv-empty-chip" onclick="startConversation('Duplicate charges')">Duplicate charges</button>
-    </div>
-  </div>
-  <div class="conv-thread" id="convThread"></div>
-  <div class="conv-input-area">
-    <div class="conv-input-wrap">
-      <input class="conv-input" id="convInput" placeholder="Ask about your property..." onkeydown="if(event.key==='Enter'&&this.value.trim()){startConversation(this.value.trim());this.value=''}">
-      <button class="conv-send" onclick="var i=document.getElementById('convInput');if(i.value.trim()){startConversation(i.value.trim());i.value=''}"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
-    </div>
-  </div>
-</div>
 </div>
 
 <script>
@@ -2561,6 +2561,15 @@ function findAskResponse(q) {
     viz: '',
     followups: ['Break down spending', 'Calculate tax savings', 'Upcoming bills']
   };
+}
+
+function resetConversation() {
+  var empty = document.getElementById('convEmpty');
+  var thread = document.getElementById('convThread');
+  if (empty) empty.style.display = '';
+  thread.classList.remove('has-messages');
+  thread.innerHTML = '';
+  ixNav('ix-chat');
 }
 
 function startConversation(question) {
